@@ -8,6 +8,5 @@ module com.mycompany.javafxcrud {
 
     opens com.mycompany.javafxcrud to javafx.fxml;
     exports com.mycompany.javafxcrud;
-     exports com.mycompany.javafxcrud.data;
-      exports com.mycompany.javafxcrud.model;
+    exports com.mycompany.javafxcrud.data;
 }

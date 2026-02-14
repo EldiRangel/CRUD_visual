@@ -5,61 +5,37 @@ import java.sql.DriverManager;
 import javafx.scene.control.Alert;
 
 public class DBConnection {
-    private Connection conectar = null;
-    
-    private final String host = "localhost";
-    private final String puerto = "5432";
-    private final String db = "postgres";
-    private final String user = "postgres";
-    private final String password = "31379406";
-    private final String cadena = "jdbc:postgresql://" + host + ":" + puerto + "/" + db;
-    
-    
-    private String dynamicUrl;
-    private String dynamicUser;
-    private String dynamicPassword;
-    
-    public DBConnection() {}
-    
-    // NUEVO MÉTODO
-    public void setConnectionParams(String url, String user, String password) {
-        this.dynamicUrl = url;
-        this.dynamicUser = user;
-        this.dynamicPassword = password;
-    }
-    
-    public Connection estableceConexion() {
+
+    private Connection connect = null;
+
+    public Connection establishConnection(String host, String port, String db, String user, String password) {
+        String url = "jdbc:postgresql://" + host + ":" + port + "/" + db;
         try {
             Class.forName("org.postgresql.Driver");
-            
-            
-            if (dynamicUrl != null && dynamicUser != null && dynamicPassword != null) {
-                conectar = DriverManager.getConnection(dynamicUrl, dynamicUser, dynamicPassword);
-            } else {
-                conectar = DriverManager.getConnection(cadena, user, password);
-            }
+            connect = DriverManager.getConnection(url, user, password);
+            showAlert("Message", "Successful connection to database: " + db);
         } catch (Exception e) {
-            showAlert("Error", "No se conectó a la base de datos: " + e.getMessage());
-            e.printStackTrace();
+            showAlert("Message", "Error: " + e.toString());
         }
-        return conectar;
+        return connect;
     }
 
     private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
     }
 
-    public void cerrarConexion() {
+    public void closeConnection() {
         try {
-            if (conectar != null && !conectar.isClosed()) {
-                conectar.close();
+            if (connect != null && !connect.isClosed()) {
+                connect.close();
+                showAlert("Message", "Connection closed");
             }
         } catch (Exception e) {
-            System.out.println("Error al cerrar: " + e.getMessage());
+            showAlert("Message", "Error closing connection: " + e.toString());
         }
     }
 }
