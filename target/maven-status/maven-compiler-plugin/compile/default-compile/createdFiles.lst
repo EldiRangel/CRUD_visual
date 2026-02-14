@@ -1,10 +1,5 @@
-com\mycompany\javafxcrud\model\GenericRecord.class
-com\mycompany\javafxcrud\data\DBConnection.class
-com\mycompany\javafxcrud\StudentController.class
-module-info.class
-com\mycompany\javafxcrud\data\TableMetadata$ColumnInfo.class
-com\mycompany\javafxcrud\data\TableMetadata.class
-com\mycompany\javafxcrud\data\AppQuery.class
-com\mycompany\javafxcrud\model\Student.class
 com\mycompany\javafxcrud\ConnectionController.class
+com\mycompany\javafxcrud\data\DBConnection.class
+com\mycompany\javafxcrud\data\DBUser.class
+module-info.class
 com\mycompany\javafxcrud\App.class
